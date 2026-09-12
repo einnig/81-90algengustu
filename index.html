@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Æfing 81 - 90 algengustu orðin í íslenskum námsbókum</title>
+    <title>Markorð: 81 - 90 algengustu orðin.</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -49,6 +49,27 @@
             transition: width 0.5s ease-in-out;
         }
         
+        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
+
+        .lang-selector {
+            margin-bottom: 20px;
+            background: #fff3e0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid #ffcc80;
+        }
+
+        .lang-selector select {
+            padding: 8px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-left: 10px;
+            max-width: 300px;
+        }
+        
         #target { 
             font-size: 4em; 
             margin: 10px 0; 
@@ -57,7 +78,7 @@
         }
         
         #is-explanation {
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: #333;
             background-color: #e8f0fe;
             padding: 15px 25px;
@@ -66,6 +87,7 @@
             margin-bottom: 20px;
             max-width: 80%;
             line-height: 1.6;
+            text-align: left;
         }
 
         .btn { 
@@ -91,17 +113,17 @@
         }
 
         #media-box { 
-            font-size: 1.05em; 
+            font-size: 1.1em; 
             color: #444; 
             text-align: left; 
             background: #f8fbff; 
             padding: 15px 30px; 
             border-radius: 12px; 
-            line-height: 1.8; 
+            line-height: 1.6; 
             border-left: 6px solid #1a73e8; 
             margin-top: 15px;
             display: inline-block;
-            min-width: 60%;
+            min-width: 70%;
         }
         #spoken {
             margin-top: 15px; 
@@ -116,7 +138,6 @@
             color: #1a73e8;
         }
         .nav-btns { margin-top: 20px; }
-        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
         
         /* Fyrir nafnainnslátt */
         #studentName {
@@ -129,15 +150,55 @@
             border-radius: 8px;
             text-align: center;
         }
+
+        .feedback-note {
+            margin-top: 40px;
+            font-size: 0.95em;
+            color: #555;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .feedback-note a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .feedback-note a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
 <div class="container" id="app">
-    <h1>Æfing 81 - 90 algengustu orðin í íslenskum námsbókum</h1>
+    <h1>Markorð: 81 - 90 algengustu orðin.</h1>
     
     <div class="progress-container">
         <div id="progress-bar"></div>
+    </div>
+
+    <div class="lang-selector">
+        <label for="languageSelect"><b>🌍 Veldu tungumál:</b></label>
+        <select id="languageSelect" onchange="updateUI()">
+            <option value="ar">Arabíska – العربية</option>
+            <option value="da">Danska – Dansk</option>
+            <option value="en" selected>Enska – English</option>
+            <option value="tl">Filippseyska – Tagalog / Filipino</option>
+            <option value="fr">Franska – Français</option>
+            <option value="lv">Lettneska – Latviešu</option>
+            <option value="lt">Litháíska – Lietuvių</option>
+            <option value="no">Norska – Norsk</option>
+            <option value="fa">Persneska – فارسی</option>
+            <option value="pt">Portúgalska – Português</option>
+            <option value="pl">Pólska – Polski</option>
+            <option value="ro">Rúmenska – Română</option>
+            <option value="ru">Rússneska – Русский</option>
+            <option value="es">Spænska – Español</option>
+            <option value="sv">Sænska – Svenska</option>
+            <option value="th">Tælenska – ภาษาไทย</option>
+            <option value="uk">Úkraínska – Українська</option>
+            <option value="vi">Víetnamska – Tiếng Việt</option>
+        </select>
     </div>
 
     <div id="counter"></div>
@@ -156,169 +217,253 @@
         <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
         <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
     </div>
+
+    <div class="feedback-note">
+        Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+    </div>
 </div>
 
 <script>
 const exerciseData = [
     { 
         text: "hjá", 
-        is_exp: "<b>Útskýring:</b> Forsetning sem þýðir að vera á sama stað, nærri, eða í heimsókn hjá einhverjum.<br><b>Dæmi:</b> Hann er <b>hjá</b> vini sínum.",
-        translations: "<b>Enska (English):</b> Explanation: Preposition meaning to be at the same place, near, or visiting someone (with / at). Example: He is <b>with / at</b> his friend's.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Przyimek oznaczający przebywanie w tym samym miejscu lub w pobliżu kogoś (u / z). Przykład: On jest <b>u</b> swojego przyjaciela.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Preposición que significa estar en el mismo lugar o visitar a alguien (con / en casa de). Ejemplo: Él está <b>con / en casa de</b> su amigo.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Giới từ có nghĩa là ở cùng một nơi, ở gần, hoặc đến thăm ai đó. Ví dụ: Anh ấy đang <b>ở chỗ</b> bạn của anh ấy.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: حرف جر يعني التواجد في نفس المكان، بالقرب، أو عند زيارة شخص ما. مثال: هو <b>عند</b> صديقه.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Предлог, означающий нахождение в том же месте, рядом или в гостях у кого-то (у / с). Пример: Он находится <b>у</b> своего друга.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Прийменник, що означає перебування в тому ж місці, поруч або в гостях у когось (у / з). Приклад: Він знаходиться <b>у</b> свого друга.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: حرف اضافه به معنی بودن در همان مکان، نزدیک یا پیش کسی. مثال: او <b>پیش</b> دوستش است.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: คำบุพบทหมายถึงการอยู่ที่เดียวกัน ใกล้เคียง หรือไปเยี่ยมใครบางคน ตัวอย่าง: เขาอยู่<b>กับ</b>เพื่อนของเขา<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: Preposição que significa estar no mesmo lugar, perto, ou visitando alguém (com / na casa de). Exemplo: Ele está <b>com</b> o amigo dele.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：介词，表示在同一个地方、在附近，或在某人那里。 例句：他在他朋友<b>那里</b>。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Prievārds, kas nozīmē atrasties tajā pašā vietā, tuvu vai ciemos pie kāda. Piemērs: Viņš ir <b>pie</b> sava drauga."
+        is_exp: "<b>Útskýring:</b> Forsetning sem þýðir að vera á sama stað, nærri, eða í heimsókn hjá einhverjum.<br><b>Samheiti:</b> hjá, nærri.<br><b>Dæmi:</b> Hann er <b>hjá</b> vini sínum.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: حرف جر يعني التواجد في نفس المكان، بالقرب، أو عند زيارة شخص ما.<br><b>مرادف:</b> بالقرب، عند.<br><b>مثال:</b> هو <b>عند</b> صديقه.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Forholdsord, der betyder at være på samme sted, nær eller på besøg hos nogen.<br><b>Synonym:</b> hos, nær.<br><b>Eksempel:</b> Han er <b>hos</b> sin ven.",
+            "en": "<b>Enska (English):</b> Explanation: Preposition meaning to be at the same place, near, or visiting someone.<br><b>Synonym:</b> near, by, with.<br><b>Example:</b> He is <b>with / at</b> his friend's.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Pang-ukol na nangangahulugang nasa iisang lugar, malapit, o bumibisita sa isang tao.<br><b>Kasingkahulugan:</b> malapit, kasama.<br><b>Halimbawa:</b> Kasama niya ang kanyang kaibigan.",
+            "fr": "<b>Franska (Français):</b> Explication: Préposition signifiant être au même endroit, près ou rendre visite à quelqu'un.<br><b>Synonyme:</b> près de, chez.<br><b>Exemple:</b> Il est <b>chez</b> son ami.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Prievārds, kas nozīmē būt tajā pašā vietā, tuvumā vai ciemoties.<br><b>Sinonīms:</b> pie, blakus.<br><b>Piemērs:</b> Viņš ir <b>pie</b> sava drauga.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Prielinksnis, reiškiantis būti toje pačioje vietoje, šalia ar lankytis pas kažką.<br><b>Sinonimas:</b> pas, prie.<br><b>Pavyzdys:</b> Jis yra <b>pas</b> savo draugą.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Preposisjon som betyr å være på samme sted, nær, eller på besøk hos noen.<br><b>Synonym:</b> hos, nær.<br><b>Eksempel:</b> Han er <b>hos</b> vennen sin.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: حرف اضافه‌ای که به معنی بودن در همان مکان، نزدیک یا پیش کسی است.<br><b>مترادف:</b> نزدیک، پیش.<br><b>مثال:</b> او <b>پیش</b> دوستش است.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Preposição que significa estar no mesmo lugar, perto ou visitando alguém.<br><b>Sinônimo:</b> perto de, com.<br><b>Exemplo:</b> Ele está <b>com</b> o amigo dele.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Przyimek oznaczający przebywanie w tym samym miejscu, w pobliżu lub w odwiedzinach u kogoś.<br><b>Synonim:</b> u, przy.<br><b>Przykład:</b> On jest <b>u</b> swojego przyjaciela.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Prepoziție care înseamnă a fi în același loc, aproape sau în vizită la cineva.<br><b>Sinonim:</b> la, lângă.<br><b>Exemplu:</b> El este <b>la</b> prietenul său.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Предлог, означающий нахождение в том же месте, рядом или в гостях.<br><b>Синоним:</b> у, около.<br><b>Пример:</b> Он находится <b>у</b> своего друга.",
+            "es": "<b>Spænska (Español):</b> Explicación: Preposición que significa estar en el mismo lugar, cerca o visitando a alguien.<br><b>Sinónimo:</b> con, en casa de.<br><b>Ejemplo:</b> Él está <b>con / en casa de</b> su amigo.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Preposition som betyder att vara på samma plats, nära, eller på besök hos någon.<br><b>Synonym:</b> hos, bredvid.<br><b>Exempel:</b> Han är <b>hos</b> sin vän.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: บุพบทที่หมายถึงอยู่ในที่เดียวกัน ใกล้ๆ หรือไปเยี่ยมใครบางคน<br><b>คำพ้องความหมาย:</b> ใกล้, กับ<br><b>ตัวอย่าง:</b> เขาอยู่<b>กับ</b>เพื่อนของเขา",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Прийменник, що означає перебування в тому ж місці, поруч або в гостях.<br><b>Синонім:</b> у, біля.<br><b>Приклад:</b> Він <b>у</b> свого друга.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Giới từ có nghĩa là ở cùng một nơi, gần, hoặc đến thăm ai đó.<br><b>Từ đồng nghĩa:</b> ở chỗ, cùng với.<br><b>Ví dụ:</b> Anh ấy đang <b>ở chỗ</b> bạn của anh ấy."
+        }
     },
     { 
         text: "þið", 
-        is_exp: "<b>Útskýring:</b> Persónufornafn í annarri persónu fleirtölu. Notað þegar talað er beint við tvo eða fleiri.<br><b>Dæmi:</b> Eruð <b>þið</b> heima núna?",
-        translations: "<b>Enska (English):</b> Explanation: Personal pronoun in the 2nd person plural. Used when talking directly to two or more people (you all). Example: Are <b>you (all)</b> home now?<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek osobowy w 2. osobie liczby mnogiej. Używany, gdy mówimy do dwóch lub więcej osób (wy). Przykład: Czy <b>wy</b> jesteście teraz w domu?<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Pronombre personal en segunda persona del plural. Se usa al hablar directamente con dos o más personas (vosotros / ustedes). Ejemplo: ¿Están <b>ustedes</b> en casa ahora?<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng ngôi thứ 2 số nhiều. Dùng khi nói trực tiếp với hai hoặc nhiều người (các bạn). Ví dụ: Bây giờ <b>các bạn</b> có ở nhà không?<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ضمير شخصي للمخاطب الجمع. يُستخدم عند التحدث مباشرة مع شخصين أو أكثر (أنتم). مثال: هل <b>أنتم</b> في المنزل الآن؟<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение во 2-м лице множественного числа. Используется при обращении к двум и более людям (вы). Пример: <b>Вы</b> сейчас дома?<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник у 2-й особі множини. Використовується при звертанні до двох і більше людей (ви). Приклад: <b>Ви</b> зараз вдома?<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: ضمیر شخصی برای دوم شخص جمع. برای صحبت مستقیم با دو یا چند نفر استفاده می‌شود (شما). مثال: آیا <b>شما</b> الان خانه هستید؟<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: สรรพนามบุรุษที่ 2 พหูพจน์ ใช้เมื่อพูดคุยโดยตรงกับสองคนขึ้นไป (พวกคุณ) ตัวอย่าง: ตอนนี้<b>พวกคุณ</b>อยู่บ้านไหม?<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: Pronome pessoal na 2ª pessoa do plural. Usado ao falar com duas ou mais pessoas (vocês). Exemplo: <b>Vocês</b> estão em casa agora?<br>" +
-                      "<b>Kínverska (中文):</b> 解释：第二人称复数代词。用于直接对两个或更多的人说话（你们）。 例句：<b>你们</b>现在在家吗？<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Personas vietniekvārds daudzskaitļa 2. personā. Lieto, runājot tieši ar diviem vai vairākiem cilvēkiem (jūs). Piemērs: Vai <b>jūs</b> tagad esat mājās?"
+        is_exp: "<b>Útskýring:</b> Persónufornafn í 2. persónu fleirtölu. Notað þegar talað er beint við tvo eða fleiri.<br><b>Samheiti:</b> þér (gamalt).<br><b>Dæmi:</b> Eruð <b>þið</b> heima núna?",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: ضمير شخصي لجمع المخاطب (أنتم). يُستخدم عند التحدث مباشرة مع شخصين أو أكثر.<br><b>مرادف:</b> أنتم.<br><b>مثال:</b> هل <b>أنتم</b> في المنزل الآن؟</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Personligt stedord i 2. person flertal (I/jer). Bruges når man taler direkte til to eller flere.<br><b>Synonym:</b> I.<br><b>Eksempel:</b> Er <b>I</b> hjemme nu?",
+            "en": "<b>Enska (English):</b> Explanation: Personal pronoun in the 2nd person plural. Used when talking directly to two or more people (you all).<br><b>Synonym:</b> you (plural).<br><b>Example:</b> Are <b>you (all)</b> home now?",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Panghalip panao sa pangalawang panauhan ng maramihan. Ginagamit kapag kinakausap nang direkta ang dalawa o higit pa.<br><b>Kasingkahulugan:</b> kayo.<br><b>Halimbawa:</b> Nasa bahay ba <b>kayo</b> ngayon?",
+            "fr": "<b>Franska (Français):</b> Explication: Pronom personnel à la 2ème personne du pluriel (vous). Utilisé pour parler directement à deux personnes ou plus.<br><b>Synonyme:</b> vous.<br><b>Exemple:</b> Êtes-<b>vous</b> à la maison maintenant ?",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Personas vietniekvārds daudzskaitļa 2. personā. Lieto, uzrunājot divus vai vairākus cilvēkus.<br><b>Sinonīms:</b> jūs.<br><b>Piemērs:</b> Vai <b>jūs</b> esat mājās tagad?",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Asmeninis įvardis antrajame asmenyje daugiskaita. Naudojamas kalbant tiesiogiai su dviem ar daugiau žmonių.<br><b>Sinonimas:</b> jūs.<br><b>Pavyzdys:</b> Ar <b>jūs</b> dabar namuose?",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Personlig pronomen i 2. person flertall (dere). Brukes når man snakker direkte til to eller flere.<br><b>Synonym:</b> dere.<br><b>Eksempel:</b> Er <b>dere</b> hjemme nå?",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: ضمیر شخصی دوم شخص جمع. وقتی مستقیماً با دو یا چند نفر صحبت می‌کنید استفاده می‌شود.<br><b>مترادف:</b> شما.<br><b>مثال:</b> آیا <b>شما</b> الان خانه هستید؟</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Pronome pessoal na 2ª pessoa do plural. Usado ao falar diretamente com duas ou mais pessoas (vocês).<br><b>Sinônimo:</b> vocês.<br><b>Exemplo:</b> <b>Vocês</b> estão em casa agora?",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Zaimek osobowy w 2. osobie liczby mnogiej. Używany podczas mówienia bezpośrednio do dwóch lub więcej osób.<br><b>Synonim:</b> wy.<br><b>Przykład:</b> Czy <b>wy</b> jesteście teraz w domu?",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Pronume personal la persoana a 2-a plural. Folosit atunci când se vorbește direct cu două sau mai multe persoane.<br><b>Sinonim:</b> voi.<br><b>Exemplu:</b> Sunteți (<b>voi</b>) acasă acum?",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение во 2-м лице множественного числа. Используется при обращении к двум и более людям.<br><b>Синоним:</b> вы.<br><b>Пример:</b> <b>Вы</b> сейчас дома?",
+            "es": "<b>Spænska (Español):</b> Explicación: Pronombre personal en segunda persona del plural. Se usa al hablar directamente con dos o más personas.<br><b>Sinónimo:</b> ustedes, vosotros.<br><b>Ejemplo:</b> ¿Están <b>ustedes</b> en casa ahora?",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Personligt pronomen i 2:a person plural (ni). Används när man talar direkt till två eller flera.<br><b>Synonym:</b> ni.<br><b>Exempel:</b> Är <b>ni</b> hemma nu?",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: สรรพนามบุรุษที่ 2 พหูพจน์ ใช้เมื่อพูดคุยโดยตรงกับสองคนขึ้นไป (พวกคุณ)<br><b>คำพ้องความหมาย:</b> พวกคุณ<br><b>ตัวอย่าง:</b> ตอนนี้<b>พวกคุณ</b>อยู่บ้านไหม?",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник у 2-й особі множини. Використовується при звертанні до двох або більше людей.<br><b>Синонім:</b> ви.<br><b>Приклад:</b> <b>Ви</b> зараз вдома?",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng ngôi thứ 2 số nhiều. Dùng khi nói chuyện trực tiếp với hai hoặc nhiều người.<br><b>Từ đồng nghĩa:</b> các bạn.<br><b>Ví dụ:</b> Bây giờ <b>các bạn</b> có ở nhà không?"
+        }
     },
     { 
         text: "síðan", 
-        is_exp: "<b>Útskýring:</b> Atviksorð sem táknar tíma og þýðir „eftir það“ eða „þá“. Getur líka verið notað um tíma sem er liðinn.<br><b>Dæmi:</b> Við borðum og förum <b>síðan</b> út.",
-        translations: "<b>Enska (English):</b> Explanation: Adverb of time meaning 'after that', 'then', or 'since'. Example: We eat and <b>then</b> go outside.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Przysłówek czasu oznaczający 'potem', 'następnie' lub 'od tego czasu'. Przykład: Jemy, a <b>potem</b> wychodzimy.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Adverbio de tiempo que significa 'después de eso', 'luego' o 'desde entonces'. Ejemplo: Comemos y <b>luego</b> salimos.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Trạng từ chỉ thời gian có nghĩa là 'sau đó' hoặc 'kể từ đó'. Ví dụ: Chúng tôi ăn và <b>sau đó</b> đi ra ngoài.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: ظرف زمان يعني 'بعد ذلك' أو 'ثم' أو 'منذ'. مثال: نحن نأكل <b>ثم</b> نخرج.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Наречие времени, означающее 'после этого', 'затем' или 'с тех пор'. Пример: Мы едим, а <b>затем</b> идем на улицу.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Прислівник часу, що означає 'після цього', 'потім' або 'відтоді'. Приклад: Ми їмо, а <b>потім</b> йдемо надвір.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: قید زمان به معنی «پس از آن»، «سپس» یا «از آن زمان». مثال: ما غذا می‌خوریم و <b>سپس</b> بیرون می‌رویم.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยาวิเศษณ์บอกเวลา หมายถึง 'หลังจากนั้น' 'จากนั้น' หรือ 'ตั้งแต่' ตัวอย่าง: พวกเรากินข้าวและ<b>จากนั้น</b>ก็ออกไปข้างนอก<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: Advérbio de tempo que significa 'depois disso', 'então' ou 'desde'. Exemplo: Nós comemos e <b>depois</b> saímos.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：表示时间的副词，意思是“在那之后”、“然后”或“自从”。 例句：我们先吃饭，<b>然后</b>出去。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Laika apstākļa vārds, kas nozīmē 'pēc tam', 'tad' vai 'kopš'. Piemērs: Mēs paēdam un <b>tad</b> ejam ārā."
+        is_exp: "<b>Útskýring:</b> Atviksorð um tíma. Getur þýtt „eftir það“ eða verið notað um tíma sem er liðinn. Hér þýðir það eftir það.<br><b>Samheiti:</b> þvínæst, á eftir. <b>Andheiti:</b> áður.<br><b>Dæmi:</b> Við borðum og förum <b>síðan</b> út.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: ظرف زمان يعني 'بعد ذلك'.<br><b>مرادف:</b> ثم. <b>مضاد:</b> قبل.<br><b>مثال:</b> نحن نأكل <b>ثم</b> نخرج.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Tidsbiord, der betyder 'derefter' eller 'siden'. Her betyder det derefter.<br><b>Synonym:</b> derefter, så. <b>Antonym:</b> før.<br><b>Eksempel:</b> Vi spiser og går <b>derefter</b> ud.",
+            "en": "<b>Enska (English):</b> Explanation: Adverb of time meaning 'after that', 'then', or 'since'. Here it means 'after that'.<br><b>Synonym:</b> then, afterwards. <b>Antonym:</b> before.<br><b>Example:</b> We eat and <b>then</b> go outside.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Pang-abay na tumutukoy sa oras, nangangahulugang 'pagkatapos'.<br><b>Kasingkahulugan:</b> pagkatapos. <b>Kasalungat:</b> bago.<br><b>Halimbawa:</b> Kakain tayo at <b>pagkatapos</b> ay lalabas.",
+            "fr": "<b>Franska (Français):</b> Explication: Adverbe de temps signifiant 'ensuite', 'puis' ou 'depuis'. Ici, il signifie 'ensuite'.<br><b>Synonyme:</b> ensuite, puis. <b>Antonyme:</b> avant.<br><b>Exemple:</b> Nous mangeons et <b>ensuite</b> nous sortons.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Laika apstākļa vārds, kas nozīmē 'pēc tam' vai 'kopš'. Šeit tas nozīmē 'pēc tam'.<br><b>Sinonīms:</b> pēc tam, tad. <b>Antonīms:</b> pirms.<br><b>Piemērs:</b> Mēs paēdam un <b>tad</b> ejam ārā.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Laiko prievezmis, reiškiantis 'po to' arba 'nuo to laiko'. Čia reiškia 'po to'.<br><b>Sinonimas:</b> po to, tuomet. <b>Antonimas:</b> prieš.<br><b>Pavyzdys:</b> Mes pavalgome ir <b>po to</b> einame į lauką.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Tidsadverb som betyr 'etter det' eller 'siden'. Her betyr det etter det.<br><b>Synonym:</b> deretter, så. <b>Antonym:</b> før.<br><b>Eksempel:</b> Vi spiser og går <b>deretter</b> ut.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: قید زمان به معنی «سپس» یا «پس از آن».<br><b>مترادف:</b> سپس، بعد. <b>متضاد:</b> قبل.<br><b>مثال:</b> ما غذا می‌خوریم و <b>سپس</b> بیرون می‌رویم.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Advérbio de tempo que significa 'depois disso', 'então' ou 'desde'. Aqui significa 'depois disso'.<br><b>Sinônimo:</b> depois, então. <b>Antônimo:</b> antes.<br><b>Exemplo:</b> Nós comemos e <b>depois</b> saímos.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Przysłówek czasu oznaczający 'następnie', 'potem' lub 'od tego czasu'. Tutaj oznacza 'potem'.<br><b>Synonim:</b> potem, następnie. <b>Antonim:</b> przedtem.<br><b>Przykład:</b> Jemy, a <b>potem</b> wychodzimy.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Adverb de timp care înseamnă 'după aceea' sau 'de atunci'. Aici înseamnă 'după aceea'.<br><b>Sinonim:</b> apoi, după. <b>Antonim:</b> înainte.<br><b>Exemplu:</b> Mâncăm și <b>apoi</b> ieșim.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Наречие времени, означающее 'после этого', 'затем' или 'с тех пор'. Здесь означает 'затем'.<br><b>Синоним:</b> потом, затем. <b>Антоним:</b> до, раньше.<br><b>Пример:</b> Мы едим, а <b>затем</b> идем на улицу.",
+            "es": "<b>Spænska (Español):</b> Explicación: Adverbio de tiempo que significa 'después de eso', 'luego' o 'desde entonces'. Aquí significa 'luego'.<br><b>Sinónimo:</b> después, luego. <b>Antónimo:</b> antes.<br><b>Ejemplo:</b> Comemos y <b>luego</b> salimos.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Tidsadverb som betyder 'efter det', 'sedan'. Här betyder det sedan.<br><b>Synonym:</b> därefter, sedan. <b>Antonym:</b> innan, före.<br><b>Exempel:</b> Vi äter och går <b>sedan</b> ut.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยาวิเศษณ์บอกเวลาหมายถึง 'หลังจากนั้น' หรือ 'จากนั้น'<br><b>คำพ้องความหมาย:</b> จากนั้น, หลังจากนั้น <b>คำตรงข้าม:</b> ก่อน<br><b>ตัวอย่าง:</b> พวกเรากินข้าวและ<b>จากนั้น</b>ก็ออกไปข้างนอก",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Прислівник часу, що означає 'після цього', 'потім' або 'відтоді'. Тут означає 'потім'.<br><b>Синонім:</b> потім, після. <b>Антонім:</b> до, раніше.<br><b>Приклад:</b> Ми їмо, а <b>потім</b> йдемо надвір.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Trạng từ chỉ thời gian có nghĩa là 'sau đó' hoặc 'kể từ'. Ở đây có nghĩa là 'sau đó'.<br><b>Từ đồng nghĩa:</b> sau đó, tiếp theo. <b>Từ trái nghĩa:</b> trước khi.<br><b>Ví dụ:</b> Chúng tôi ăn và <b>sau đó</b> đi ra ngoài."
+        }
     },
     { 
         text: "sagði", 
-        is_exp: "<b>Útskýring:</b> Sagnorðið „að segja“ í þátíð. Þýðir að ég, hann eða hún talaði eða lét orð falla.<br><b>Dæmi:</b> Hún <b>sagði</b> mér frá bókinni.",
-        translations: "<b>Enska (English):</b> Explanation: The verb 'to say' or 'to tell' in the past tense (I, he, or she spoke). Example: She <b>told</b> me about the book.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'powiedzieć' lub 'opowiedzieć' w czasie przeszłym. Przykład: Ona <b>opowiedziała</b> mi o książce.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: El verbo 'decir' o 'contar' en tiempo pasado. Ejemplo: Ella me <b>contó</b> sobre el libro.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'nói' hoặc 'kể' ở thì quá khứ. Ví dụ: Cô ấy đã <b>kể</b> cho tôi nghe về cuốn sách.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'قال' أو 'أخبر' في الزمن الماضي. مثال: لقد <b>أخبرتني</b> عن الكتاب.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'сказать' или 'рассказать' в прошедшем времени. Пример: Она <b>рассказала</b> мне о книге.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'сказати' або 'розповісти' в минулому часі. Приклад: Вона <b>розповіла</b> мені про книгу.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل «گفتن» یا «تعریف کردن» در زمان گذشته. مثال: او درباره کتاب به من <b>گفت</b>.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยา 'พูด' หรือ 'บอก' ในอดีตกาล ตัวอย่าง: เธอ<b>เล่า</b>ให้ฉันฟังเกี่ยวกับหนังสือ<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: O verbo 'dizer' ou 'contar' no tempo passado. Exemplo: Ela me <b>contou</b> sobre o livro.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：动词“说”或“告诉”的过去时形式。 例句：她<b>告诉</b>了我关于那本书的事。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'teikt' vai 'stāstīt' pagātnē. Piemērs: Viņa man <b>pastāstīja</b> par grāmatu."
+        is_exp: "<b>Útskýring:</b> Sögnin „að segja“ í þátíð (1. eða 3. persónu eintölu). Þýðir að einhver talaði eða lét orð falla.<br><b>Samheiti:</b> mælti, tjáði.<br><b>Dæmi:</b> Hún <b>sagði</b> mér frá bókinni.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: الفعل 'قال' أو 'أخبر' في الزمن الماضي.<br><b>مرادف:</b> صرح، ذكر.<br><b>مثال:</b> لقد <b>أخبرتني</b> عن الكتاب.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsordet 'at sige' i datid. Betyder at nogen talte eller fortalte noget.<br><b>Synonym:</b> fortalte, udtalte.<br><b>Eksempel:</b> Hun <b>fortalte</b> mig om bogen.",
+            "en": "<b>Enska (English):</b> Explanation: The verb 'to say' or 'to tell' in the past tense. Means someone spoke or made a statement.<br><b>Synonym:</b> told, stated.<br><b>Example:</b> She <b>told</b> me about the book.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang pandiwang 'magsabi' sa nakaraang panahunan.<br><b>Kasingkahulugan:</b> nagkuwento, nagpahayag.<br><b>Halimbawa:</b> <b>Kinuwento</b> niya sa akin ang tungkol sa libro.",
+            "fr": "<b>Franska (Français):</b> Explication: Le verbe 'dire' ou 'raconter' au passé.<br><b>Synonyme:</b> a raconté, a exprimé.<br><b>Exemple:</b> Elle m'a <b>parlé</b> du livre.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'teikt' vai 'stāstīt' pagātnē.<br><b>Sinonīms:</b> stāstīja, pauda.<br><b>Piemērs:</b> Viņa man <b>pastāstīja</b> par grāmatu.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodis 'sakyti' ar 'pasakoti' būtajame laike.<br><b>Sinonimas:</b> papasakojo, ištarė.<br><b>Pavyzdys:</b> Ji man <b>papasakojo</b> apie knygą.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verbet 'å si' i fortid. Betyr at noen snakket eller fortalte noe.<br><b>Synonym:</b> fortalte, ytret.<br><b>Eksempel:</b> Hun <b>fortalte</b> meg om boken.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل «گفتن» در زمان گذشته.<br><b>مترادف:</b> بیان کرد، تعریف کرد.<br><b>مثال:</b> او درباره کتاب به من <b>گفت</b>.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O verbo 'dizer' ou 'contar' no tempo passado.<br><b>Sinônimo:</b> contou, falou.<br><b>Exemplo:</b> Ela me <b>contou</b> sobre o livro.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik 'powiedzieć' lub 'opowiedzieć' w czasie przeszłym.<br><b>Synonim:</b> rzekł, oznajmił.<br><b>Przykład:</b> Ona <b>opowiedziała</b> mi o książce.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verbul 'a spune' sau 'a povesti' la timpul trecut.<br><b>Sinonim:</b> a povestit, a afirmat.<br><b>Exemplu:</b> Ea mi-a <b>povestit</b> despre carte.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол 'сказать' или 'рассказать' в прошедшем времени.<br><b>Синоним:</b> рассказал, произнес.<br><b>Пример:</b> Она <b>рассказала</b> мне о книге.",
+            "es": "<b>Spænska (Español):</b> Explicación: El verbo 'decir' o 'contar' en tiempo pasado.<br><b>Sinónimo:</b> contó, expresó.<br><b>Ejemplo:</b> Ella me <b>contó</b> sobre el libro.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verbet 'att säga' i dåtid. Betyder att någon talade eller berättade något.<br><b>Synonym:</b> berättade, uttalade.<br><b>Exempel:</b> Hon <b>berättade</b> för mig om boken.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยา 'พูด' หรือ 'บอก' ในอดีตกาล<br><b>คำพ้องความหมาย:</b> เล่า, กล่าว<br><b>ตัวอย่าง:</b> เธอ<b>เล่า</b>ให้ฉันฟังเกี่ยวกับหนังสือ",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'сказати' або 'розповісти' в минулому часі.<br><b>Синонім:</b> розповів, мовив.<br><b>Приклад:</b> Вона <b>розповіла</b> мені про книгу.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'nói' hoặc 'kể' ở thì quá khứ.<br><b>Từ đồng nghĩa:</b> đã kể, đã phát biểu.<br><b>Ví dụ:</b> Cô ấy đã <b>kể</b> cho tôi nghe về cuốn sách."
+        }
     },
     { 
         text: "varð", 
-        is_exp: "<b>Útskýring:</b> Sagnorðið „að verða“ í þátíð (1. eða 3. persónu). Þýðir að eitthvað breyttist yfir í annað ástand.<br><b>Dæmi:</b> Veðrið <b>varð</b> mjög vont í gær.",
-        translations: "<b>Enska (English):</b> Explanation: The verb 'to become' in the past tense. Means something changed into another state. Example: The weather <b>became</b> very bad yesterday.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'stać się / zostać' w czasie przeszłym. Oznacza zmianę w inny stan. Przykład: Pogoda <b>stała się</b> wczoraj bardzo zła.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: El verbo 'convertirse' o 'ponerse' en tiempo pasado. Significa que algo cambió de estado. Ejemplo: El clima se <b>puso</b> muy malo ayer.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'trở nên' ở thì quá khứ. Nghĩa là một thứ gì đó đã chuyển sang trạng thái khác. Ví dụ: Thời tiết hôm qua đã <b>trở nên</b> rất xấu.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'أصبح' في الزمن الماضي. يعني أن شيئاً تغير إلى حالة أخرى. مثال: <b>أصبح</b> الطقس سيئاً جداً البارحة.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'стать' в прошедшем времени. Означает, что что-то перешло в другое состояние. Пример: Погода вчера <b>стала</b> очень плохой.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'стати' в минулому часі. Означає, що щось перейшло в інший стан. Приклад: Погода вчора <b>стала</b> дуже поганою.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل «شدن» در زمان گذشته. به معنی تغییر چیزی به حالت دیگر. مثال: دیروز هوا خیلی بد <b>شد</b>.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยา 'กลายเป็น' ในอดีตกาล หมายถึงบางสิ่งเปลี่ยนเป็นอีกสถานะหนึ่ง ตัวอย่าง: เมื่อวานอากาศ<b>กลายเป็น</b>แย่มาก<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: O verbo 'tornar-se' ou 'ficar' no tempo passado. Significa que algo mudou de estado. Exemplo: O tempo <b>ficou</b> muito ruim ontem.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：动词“变成”的过去时形式。表示某物改变了状态。 例句：昨天的天气<b>变得</b>很糟糕。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'kļūt' pagātnē. Nozīmē, ka kaut kas mainījies citā stāvoklī. Piemērs: Laiks vakar <b>kļuva</b> ļoti slikts."
+        is_exp: "<b>Útskýring:</b> Sögnin „að verða“ í þátíð (1. eða 3. persónu eintölu). Þýðir að eitthvað breyttist yfir í annað ástand.<br><b>Samheiti:</b> breyttist í, gerðist.<br><b>Dæmi:</b> Veðrið <b>varð</b> mjög vont í gær.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: الفعل 'أصبح' في الزمن الماضي. يعني أن شيئاً تغير إلى حالة أخرى.<br><b>مرادف:</b> تحول إلى.<br><b>مثال:</b> <b>أصبح</b> الطقس سيئاً جداً البارحة.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsordet 'at blive' i datid. Betyder at noget ændrede sig til en anden tilstand.<br><b>Synonym:</b> ændredes til.<br><b>Eksempel:</b> Vejret <b>blev</b> meget dårligt i går.",
+            "en": "<b>Enska (English):</b> Explanation: The verb 'to become' in the past tense. Means something changed into another state.<br><b>Synonym:</b> turned into, happened.<br><b>Example:</b> The weather <b>became</b> very bad yesterday.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang pandiwang 'maging' sa nakaraang panahunan. Nangangahulugang may nagbago sa ibang estado.<br><b>Kasingkahulugan:</b> naging.<br><b>Halimbawa:</b> <b>Naging</b> napakasama ng panahon kahapon.",
+            "fr": "<b>Franska (Français):</b> Explication: Le verbe 'devenir' au passé. Signifie que quelque chose a changé d'état.<br><b>Synonyme:</b> s'est transformé en, s'est produit.<br><b>Exemple:</b> Le temps <b>est devenu</b> très mauvais hier.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'kļūt' pagātnē. Nozīmē, ka kaut kas mainījies citā stāvoklī.<br><b>Sinonīms:</b> pārvērtās par.<br><b>Piemērs:</b> Laiks vakar <b>kļuva</b> ļoti slikts.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodis 'tapti' būtajame laike. Reiškia, kad kažkas pasikeitė į kitą būseną.<br><b>Sinonimas:</b> pavirto, pasidarė.<br><b>Pavyzdys:</b> Orai vakar <b>tapo</b> labai blogi.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verbet 'å bli' i fortid. Betyr at noe endret seg til en annen tilstand.<br><b>Synonym:</b> endret seg til.<br><b>Eksempel:</b> Været <b>ble</b> veldig dårlig i går.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل «شدن» در زمان گذشته. به معنی تغییر چیزی به حالت دیگر.<br><b>مترادف:</b> تبدیل شد به.<br><b>مثال:</b> دیروز هوا خیلی بد <b>شد</b>.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O verbo 'tornar-se' ou 'ficar' no tempo passado. Significa que algo mudou de estado.<br><b>Sinônimo:</b> virou, transformou-se em.<br><b>Exemplo:</b> O tempo <b>ficou</b> muito ruim ontem.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik 'stać się / zostać' w czasie przeszłym. Oznacza zmianę w inny stan.<br><b>Synonim:</b> zmieniło się w.<br><b>Przykład:</b> Pogoda <b>stała się</b> wczoraj bardzo zła.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verbul 'a deveni' la timpul trecut. Înseamnă că ceva s-a schimbat într-o altă stare.<br><b>Sinonim:</b> s-a transformat în.<br><b>Exemplu:</b> Vremea <b>a devenit</b> foarte rea ieri.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол 'стать' в прошедшем времени. Означает, что что-то перешло в другое состояние.<br><b>Синоним:</b> превратилось в, сделалось.<br><b>Пример:</b> Погода вчера <b>стала</b> очень плохой.",
+            "es": "<b>Spænska (Español):</b> Explicación: El verbo 'convertirse' o 'ponerse' en tiempo pasado. Significa que algo cambió de estado.<br><b>Sinónimo:</b> se transformó en, pasó a ser.<br><b>Ejemplo:</b> El clima se <b>puso</b> muy malo ayer.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verbet 'att bli' i dåtid. Betyder att något ändrades till ett annat tillstånd.<br><b>Synonym:</b> övergick till.<br><b>Exempel:</b> Vädret <b>blev</b> mycket dåligt i går.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยา 'กลายเป็น' ในอดีตกาล หมายถึงการเปลี่ยนไปสู่อีกสถานะหนึ่ง<br><b>คำพ้องความหมาย:</b> เปลี่ยนเป็น<br><b>ตัวอย่าง:</b> เมื่อวานอากาศ<b>กลายเป็น</b>แย่มาก",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'стати' в минулому часі. Означає, що щось перейшло в інший стан.<br><b>Синонім:</b> перетворилося на.<br><b>Приклад:</b> Погода вчора <b>стала</b> дуже поганою.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'trở nên' ở thì quá khứ. Nghĩa là một thứ gì đó đã chuyển sang trạng thái khác.<br><b>Từ đồng nghĩa:</b> biến thành.<br><b>Ví dụ:</b> Thời tiết hôm qua đã <b>trở nên</b> rất xấu."
+        }
     },
     { 
         text: "koma", 
-        is_exp: "<b>Útskýring:</b> Sagnorð í nafnhætti sem þýðir að færast nær staðnum þar sem viðkomandi er staddur (að mæta eða heimsækja).<br><b>Dæmi:</b> Ætlar þú að <b>koma</b> í skólann?",
-        translations: "<b>Enska (English):</b> Explanation: Verb in the infinitive meaning to move closer, arrive, or visit (to come). Example: Are you going to <b>come</b> to school?<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik w bezokoliczniku oznaczający zbliżanie się, przybycie (przyjść). Przykład: Zamierzasz <b>przyjść</b> do szkoły?<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Verbo en infinitivo que significa acercarse, llegar o visitar (venir). Ejemplo: ¿Vas a <b>venir</b> a la escuela?<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ nguyên thể có nghĩa là tiến gần lại, đến nơi, hoặc ghé thăm (đến). Ví dụ: Bạn có định <b>đến</b> trường không?<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: فعل في المصدر يعني الاقتراب، الوصول، أو الزيارة (المجيء). مثال: هل ستـ<b>ـأتي</b> إلى المدرسة؟<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол в инфинитиве, означающий приближение или прибытие (прийти). Пример: Ты собираешься <b>прийти</b> в школу?<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово в інфінітиві, що означає наближення або прибуття (прийти). Приклад: Ти збираєшся <b>прийти</b> до школи?<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل مصدر به معنی نزدیک شدن، رسیدن یا بازدید کردن (آمدن). مثال: آیا می‌خواهی به مدرسه <b>بیایی</b>؟<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยารูปปกติหมายถึงการเข้ามาใกล้ มาถึง หรือมาเยือน (มา) ตัวอย่าง: คุณจะ<b>มา</b>โรงเรียนไหม?<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: Verbo no infinitivo que significa aproximar-se, chegar ou visitar (vir). Exemplo: Você vai <b>vir</b> para a escola?<br>" +
-                      "<b>Kínverska (中文):</b> 解释：动词不定式，意思是靠近、到达或拜访（来）。 例句：你打算<b>来</b>学校吗？<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds nenoteiksmē, kas nozīmē tuvoties, ierasties (nākt). Piemērs: Vai tu plāno <b>nākt</b> uz skolu?"
+        is_exp: "<b>Útskýring:</b> Sagnorð í nafnhætti sem þýðir að færast nær eða mæta á stað.<br><b>Samheiti:</b> mæta, birtast. <b>Andheiti:</b> fara.<br><b>Dæmi:</b> Ætlar þú að <b>koma</b> í skólann?",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: فعل في المصدر يعني الاقتراب أو الحضور.<br><b>مرادف:</b> يحضر. <b>مضاد:</b> يغادر.<br><b>مثال:</b> هل ستـ<b>ـأتي</b> إلى المدرسة؟</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsord i navnemåde, der betyder at nærme sig eller møde op.<br><b>Synonym:</b> ankomme, møde op. <b>Antonym:</b> tage afsted.<br><b>Eksempel:</b> Skal du <b>komme</b> i skole?",
+            "en": "<b>Enska (English):</b> Explanation: Infinitive verb meaning to move closer or attend/arrive.<br><b>Synonym:</b> attend, appear. <b>Antonym:</b> leave, go.<br><b>Example:</b> Are you going to <b>come</b> to school?",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Pandiwang infinitive na nangangahulugang lumapit o dumalo/dumating.<br><b>Kasingkahulugan:</b> dumalo. <b>Kasalungat:</b> umalis.<br><b>Halimbawa:</b> <b>Papasok</b> ka ba sa paaralan?",
+            "fr": "<b>Franska (Français):</b> Explication: Verbe à l'infinitif signifiant se rapprocher ou arriver/assister.<br><b>Synonyme:</b> arriver, se présenter. <b>Antonyme:</b> partir, s'en aller.<br><b>Exemple:</b> Vas-tu <b>venir</b> à l'école ?",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds nenoteiksmē, kas nozīmē tuvoties vai ierasties.<br><b>Sinonīms:</b> ierasties. <b>Antonīms:</b> aiziet.<br><b>Piemērs:</b> Vai tu plāno <b>nākt</b> uz skolu?",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodžio bendratis, reiškianti artėti arba atvykti/dalyvauti.<br><b>Sinonimas:</b> atvykti, pasirodyti. <b>Antonimas:</b> išeiti.<br><b>Pavyzdys:</b> Ar ketini <b>ateiti</b> į mokyklą?",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verb i infinitiv som betyr å nærme seg eller møte opp.<br><b>Synonym:</b> ankomme, dukke opp. <b>Antonym:</b> dra, forlate.<br><b>Eksempel:</b> Skal du <b>komme</b> på skolen?",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل مصدر به معنی نزدیک شدن یا حضور یافتن/رسیدن.<br><b>مترادف:</b> حاضر شدن. <b>متضاد:</b> رفتن.<br><b>مثال:</b> آیا می‌خواهی به مدرسه <b>بیایی</b>؟</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Verbo no infinitivo que significa aproximar-se ou comparecer/chegar.<br><b>Sinônimo:</b> comparecer, chegar. <b>Antônimo:</b> sair, ir embora.<br><b>Exemplo:</b> Você vai <b>vir</b> para a escola?",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik w bezokoliczniku oznaczający zbliżanie się lub przybycie na miejsce.<br><b>Synonim:</b> pojawić się, zjawić się. <b>Antonim:</b> pójść, wyjść.<br><b>Przykład:</b> Zamierzasz <b>przyjść</b> do szkoły?",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verb la infinitiv care înseamnă a se apropia sau a sosi/participa.<br><b>Sinonim:</b> a sosi, a apărea. <b>Antonim:</b> a pleca.<br><b>Exemplu:</b> Ai de gând să <b>vii</b> la școală?",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол в инфинитиве, означающий приближение или прибытие.<br><b>Синоним:</b> явиться, прибыть. <b>Антоним:</b> уйти, уехать.<br><b>Пример:</b> Ты собираешься <b>прийти</b> в школу?",
+            "es": "<b>Spænska (Español):</b> Explicación: Verbo en infinitivo que significa acercarse o asistir/llegar.<br><b>Sinónimo:</b> asistir, presentarse. <b>Antónimo:</b> irse, partir.<br><b>Ejemplo:</b> ¿Vas a <b>venir</b> a la escuela?",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verb i infinitiv som betyder att närma sig eller anlända/närvara.<br><b>Synonym:</b> anlända, dyka upp. <b>Antonym:</b> gå, åka.<br><b>Exempel:</b> Tänker du <b>komma</b> till skolan?",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยารูปปกติหมายถึงการเข้ามาใกล้ หรือมาถึง/เข้าร่วม<br><b>คำพ้องความหมาย:</b> ปรากฏตัว, เข้าร่วม <b>คำตรงข้าม:</b> ออกไป, จากไป<br><b>ตัวอย่าง:</b> คุณจะ<b>มา</b>โรงเรียนไหม?",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово в інфінітиві, що означає наближення або прибуття.<br><b>Синонім:</b> з'явитися, прибути. <b>Антонім:</b> піти, залишити.<br><b>Приклад:</b> Ти збираєшся <b>прийти</b> до школи?",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ nguyên thể có nghĩa là tiến lại gần hoặc đến/tham dự.<br><b>Từ đồng nghĩa:</b> có mặt, xuất hiện. <b>Từ trái nghĩa:</b> rời đi, đi khỏi.<br><b>Ví dụ:</b> Bạn có định <b>đến</b> trường không?"
+        }
     },
     { 
         text: "kom", 
-        is_exp: "<b>Útskýring:</b> Sagnorðið „að koma“ í þátíð eintölu. Þýðir að eitthvað mætti eða gerðist áður.<br><b>Dæmi:</b> Rútan <b>kom</b> of seint.",
-        translations: "<b>Enska (English):</b> Explanation: The verb 'to come' in past tense singular. Means someone or something arrived earlier. Example: The bus <b>came</b> too late.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'przyjść / przyjechać' w czasie przeszłym (liczba pojedyncza). Oznacza, że ktoś lub coś przybyło wcześniej. Przykład: Autobus <b>przyjechał</b> za późno.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: El verbo 'venir / llegar' en tiempo pasado singular. Significa que alguien o algo llegó antes. Ejemplo: El autobús <b>llegó</b> demasiado tarde.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'đến' ở thì quá khứ số ít. Có nghĩa là ai đó hoặc cái gì đó đã đến. Ví dụ: Xe buýt đã <b>đến</b> quá muộn.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'جاء' في الزمن الماضي للمفرد. يعني أن شخصاً أو شيئاً قد وصل. مثال: الحافلة <b>جاءت</b> متأخرة جداً.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'прийти / приехать' в прошедшем времени единственного числа. Означает, что кто-то или что-то прибыло. Пример: Автобус <b>приехал</b> слишком поздно.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'прийти / приїхати' в минулому часі однини. Означає, що хтось або щось прибуло. Приклад: Автобус <b>приїхав</b> занадто пізно.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل «آمدن» در زمان گذشته مفرد. به معنی رسیدن شخصی یا چیزی در گذشته. مثال: اتوبوس خیلی دیر <b>آمد</b>.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยา 'มา' ในอดีตกาลเอกพจน์ หมายถึงมีคนหรือสิ่งของมาถึงแล้ว ตัวอย่าง: รถบัส<b>มา</b>สายเกินไป<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: O verbo 'vir / chegar' no tempo passado singular. Significa que alguém ou algo chegou. Exemplo: O ônibus <b>chegou</b> tarde demais.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：动词“来”的过去时单数。表示某人或某物已经到达。 例句：公共汽车<b>来</b>得太晚了。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'nākt' pagātnes vienskaitlī. Nozīmē, ka kāds vai kaut kas ieradās. Piemērs: Autobuss <b>atbrauca</b> pārāk vēlu."
+        is_exp: "<b>Útskýring:</b> Sögnin „að koma“ í þátíð eintölu. Þýðir að eitthvað eða einhver mætti á staðinn.<br><b>Samheiti:</b> mætti, birtist. <b>Andheiti:</b> fór.<br><b>Dæmi:</b> Rútan <b>kom</b> of seint.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: الفعل 'جاء' في الزمن الماضي. يعني أن شخصاً أو شيئاً قد وصل.<br><b>مرادف:</b> وصل، ظهر. <b>مضاد:</b> غادر.<br><b>مثال:</b> الحافلة <b>جاءت</b> متأخرة جداً.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsordet 'at komme' i datid ental. Betyder at nogen eller noget ankom.<br><b>Synonym:</b> ankom, dukkede op. <b>Antonym:</b> tog afsted.<br><b>Eksempel:</b> Bussen <b>kom</b> for sent.",
+            "en": "<b>Enska (English):</b> Explanation: The verb 'to come' in past tense singular. Means someone or something arrived.<br><b>Synonym:</b> arrived, appeared. <b>Antonym:</b> left, departed.<br><b>Example:</b> The bus <b>came</b> too late.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang pandiwang 'dumating' sa nakaraang panahunan (isahan).<br><b>Kasingkahulugan:</b> dumating, lumitaw. <b>Kasalungat:</b> umalis.<br><b>Halimbawa:</b> <b>Dumating</b> ang bus nang huli.",
+            "fr": "<b>Franska (Français):</b> Explication: Le verbe 'venir' au passé (singulier). Signifie que quelqu'un ou quelque chose est arrivé.<br><b>Synonyme:</b> est arrivé, est apparu. <b>Antonyme:</b> est parti.<br><b>Exemple:</b> Le bus <b>est arrivé</b> trop tard.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'nākt' pagātnes vienskaitlī. Nozīmē, ka kāds vai kaut kas ieradās.<br><b>Sinonīms:</b> ieradās, parādījās. <b>Antonīms:</b> aizgāja.<br><b>Piemērs:</b> Autobuss <b>atbrauca</b> pārāk vēlu.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodis 'ateiti' būtajame laike (vienaskaita). Reiškia, kad kažkas atvyko.<br><b>Sinonimas:</b> atvyko, pasirodė. <b>Antonimas:</b> išvyko.<br><b>Pavyzdys:</b> Autobusas <b>atvažiavo</b> per vėlai.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verbet 'å komme' i fortid entall. Betyr at noen eller noe ankom.<br><b>Synonym:</b> ankom, dukket opp. <b>Antonym:</b> dro, forlot.<br><b>Eksempel:</b> Bussen <b>kom</b> for sent.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل «آمدن» در زمان گذشته مفرد. به معنی رسیدن کسی یا چیزی.<br><b>مترادف:</b> رسید، ظاهر شد. <b>متضاد:</b> رفت.<br><b>مثال:</b> اتوبوس خیلی دیر <b>آمد</b>.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O verbo 'vir' no passado singular. Significa que alguém ou algo chegou.<br><b>Sinônimo:</b> chegou, apareceu. <b>Antônimo:</b> saiu, partiu.<br><b>Exemplo:</b> O ônibus <b>chegou</b> tarde demais.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik 'przyjść / przyjechać' w czasie przeszłym (liczba pojedyncza).<br><b>Synonim:</b> przybył, zjawil się. <b>Antonim:</b> odjechał, wyszedł.<br><b>Przykład:</b> Autobus <b>przyjechał</b> za późno.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verbul 'a veni' la trecut singular. Înseamnă că cineva sau ceva a sosit.<br><b>Sinonim:</b> a sosit, a apărut. <b>Antonim:</b> a plecat.<br><b>Exemplu:</b> Autobuzul <b>a venit</b> prea târziu.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол 'прийти/приехать' в прошедшем времени ед.ч. Означает, что кто-то или что-то прибыло.<br><b>Синоним:</b> прибыл, появился. <b>Антоним:</b> ушел, уехал.<br><b>Пример:</b> Автобус <b>приехал</b> слишком поздно.",
+            "es": "<b>Spænska (Español):</b> Explicación: El verbo 'venir/llegar' en pasado singular. Significa que alguien o algo llegó.<br><b>Sinónimo:</b> llegó, apareció. <b>Antónimo:</b> se fue, partió.<br><b>Ejemplo:</b> El autobús <b>llegó</b> demasiado tarde.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verbet 'att komma' i dåtid singular. Betyder att någon eller något anlände.<br><b>Synonym:</b> anlände, dök upp. <b>Antonym:</b> åkte, gick.<br><b>Exempel:</b> Bussen <b>kom</b> för sent.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยา 'มา' ในอดีตกาลเอกพจน์ หมายถึงมีคนหรือสิ่งของมาถึง<br><b>คำพ้องความหมาย:</b> มาถึง, ปรากฏตัว <b>คำตรงข้าม:</b> จากไป, ออกไป<br><b>ตัวอย่าง:</b> รถบัส<b>มา</b>สายเกินไป",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'прийти/приїхати' в минулому часі однини. Означає, що хтось або щось прибуло.<br><b>Синонім:</b> прибув, з'явився. <b>Антонім:</b> пішов, поїхав.<br><b>Приклад:</b> Автобус <b>приїхав</b> занадто пізно.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'đến' ở thì quá khứ số ít. Có nghĩa là ai đó hoặc cái gì đó đã đến nơi.<br><b>Từ đồng nghĩa:</b> đã đến, xuất hiện. <b>Từ trái nghĩa:</b> rời đi, đi khỏi.<br><b>Ví dụ:</b> Xe buýt đã <b>đến</b> quá muộn."
+        }
     },
     { 
         text: "fara", 
-        is_exp: "<b>Útskýring:</b> Sagnorð í nafnhætti sem þýðir að ferðast í burtu eða yfirgefa ákveðinn stað.<br><b>Dæmi:</b> Ég ætla að <b>fara</b> heim að sofa.",
-        translations: "<b>Enska (English):</b> Explanation: Verb in the infinitive meaning to travel away or leave a place (to go). Example: I am going to <b>go</b> home to sleep.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik w bezokoliczniku oznaczający podróżowanie lub opuszczenie miejsca (iść / jechać). Przykład: Zamierzam <b>iść</b> do domu spać.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Verbo en infinitivo que significa viajar, alejarse o irse (ir). Ejemplo: Voy a <b>irme</b> a casa a dormir.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ nguyên thể có nghĩa là đi xa hoặc rời khỏi một nơi (đi). Ví dụ: Tôi dự định <b>đi</b> về nhà để ngủ.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: فعل في المصدر يعني السفر بعيداً أو مغادرة مكان (الذهاب). مثال: سـ<b>ـأذهب</b> إلى المنزل لأنام.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол в инфинитиве, означающий удаление или уход из места (идти / ехать). Пример: Я собираюсь <b>пойти</b> домой спать.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово в інфінітиві, що означає віддалення або залишення місця (йти / їхати). Приклад: Я збираюся <b>піти</b> додому спати.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل مصدر به معنی دور شدن یا ترک کردن یک مکان (رفتن). مثال: من می‌خواهم برای خوابیدن به خانه <b>بروم</b>.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยารูปปกติหมายถึงการเดินทางไปหรือออกไปจากสถานที่ (ไป) ตัวอย่าง: ฉันจะ<b>กลับ</b>ไปนอนที่บ้าน<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: Verbo no infinitivo que significa viajar ou sair de um lugar (ir). Exemplo: Eu vou <b>ir</b> para casa dormir.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：动词不定式，意思是离开或前往某处（去）。 例句：我打算<b>回家</b>睡觉。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds nenoteiksmē, kas nozīmē doties prom vai atstāt vietu (iet). Piemērs: Es iešu <b>mājās</b> gulēt."
+        is_exp: "<b>Útskýring:</b> Sagnorð í nafnhætti sem þýðir að ferðast í burtu eða yfirgefa stað.<br><b>Samheiti:</b> halda af stað, yfirgefa. <b>Andheiti:</b> koma, vera kyrr.<br><b>Dæmi:</b> Ég ætla að <b>fara</b> heim að sofa.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: فعل في المصدر يعني السفر بعيداً أو مغادرة مكان.<br><b>مرادف:</b> ينطلق، يغادر. <b>مضاد:</b> يأتي، يبقى.<br><b>مثال:</b> سـ<b>ـأذهب</b> إلى المنزل لأنام.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsord i navnemåde, der betyder at rejse væk eller forlade et sted.<br><b>Synonym:</b> tage afsted, forlade. <b>Antonym:</b> ankomme, blive.<br><b>Eksempel:</b> Jeg vil <b>tage</b> hjem og sove.",
+            "en": "<b>Enska (English):</b> Explanation: Infinitive verb meaning to travel away or leave a place.<br><b>Synonym:</b> depart, leave. <b>Antonym:</b> come, stay.<br><b>Example:</b> I am going to <b>go</b> home to sleep.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Pandiwang infinitive na nangangahulugang umalis o lumisan sa isang lugar.<br><b>Kasingkahulugan:</b> umalis, lumisan. <b>Kasalungat:</b> dumating, manatili.<br><b>Halimbawa:</b> <b>Uuwi</b> na ako para matulog.",
+            "fr": "<b>Franska (Français):</b> Explication: Verbe à l'infinitif signifiant s'éloigner ou quitter un lieu.<br><b>Synonyme:</b> partir, quitter. <b>Antonyme:</b> venir, rester.<br><b>Exemple:</b> Je vais <b>rentrer (aller)</b> à la maison pour dormir.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds nenoteiksmē, kas nozīmē doties prom vai atstāt vietu.<br><b>Sinonīms:</b> doties, pamest. <b>Antonīms:</b> nākt, palikt.<br><b>Piemērs:</b> Es iešu <b>mājās</b> gulēt.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodžio bendratis, reiškianti keliauti tolyn arba palikti vietą.<br><b>Sinonimas:</b> išvykti, palikti. <b>Antonimas:</b> atvykti, likti.<br><b>Pavyzdys:</b> Aš ketinu <b>eiti</b> namo miegoti.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verb i infinitiv som betyr å reise bort eller forlate et sted.<br><b>Synonym:</b> dra, forlate. <b>Antonym:</b> komme, bli.<br><b>Eksempel:</b> Jeg skal <b>dra</b> hjem for å sove.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل مصدر به معنی دور شدن یا ترک کردن یک مکان.<br><b>مترادف:</b> راه افتادن، ترک کردن. <b>متضاد:</b> آمدن، ماندن.<br><b>مثال:</b> من می‌خواهم برای خوابیدن به خانه <b>بروم</b>.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: Verbo no infinitivo que significa viajar para longe ou sair de um lugar.<br><b>Sinônimo:</b> partir, sair. <b>Antônimo:</b> vir, ficar.<br><b>Exemplo:</b> Eu vou <b>ir</b> para casa dormir.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik w bezokoliczniku oznaczający podróżowanie lub opuszczenie miejsca.<br><b>Synonim:</b> wyruszyć, opuścić. <b>Antonim:</b> przyjść, zostać.<br><b>Przykład:</b> Zamierzam <b>iść</b> do domu spać.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verb la infinitiv care înseamnă a călători departe sau a părăsi un loc.<br><b>Sinonim:</b> a pleca, a părăsi. <b>Antonim:</b> a veni, a rămâne.<br><b>Exemplu:</b> Am de gând să <b>merg</b> acasă să dorm.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол в инфинитиве, означающий удаление или уход из места.<br><b>Синоним:</b> отправиться, покинуть. <b>Антоним:</b> прийти, остаться.<br><b>Пример:</b> Я собираюсь <b>пойти</b> домой спать.",
+            "es": "<b>Spænska (Español):</b> Explicación: Verbo en infinitivo que significa viajar lejos o irse de un lugar.<br><b>Sinónimo:</b> partir, abandonar. <b>Antónimo:</b> venir, quedarse.<br><b>Ejemplo:</b> Voy a <b>irme</b> a casa a dormir.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verb i infinitiv som betyder att resa bort eller lämna en plats.<br><b>Synonym:</b> ge sig iväg, lämna. <b>Antonym:</b> komma, stanna.<br><b>Exempel:</b> Jag ska <b>gå</b> hem och sova.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยารูปปกติหมายถึงการเดินทางไปหรือออกจากสถานที่<br><b>คำพ้องความหมาย:</b> ออกเดินทาง, ทิ้งไป <b>คำตรงข้าม:</b> มา, อยู่ต่อ<br><b>ตัวอย่าง:</b> ฉันจะ<b>กลับ</b>ไปนอนที่บ้าน",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово в інфінітиві, що означає віддалення або залишення місця.<br><b>Синонім:</b> вирушити, покинути. <b>Антонім:</b> прийти, залишитися.<br><b>Приклад:</b> Я збираюся <b>піти</b> додому спати.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ nguyên thể có nghĩa là đi xa hoặc rời khỏi một nơi.<br><b>Từ đồng nghĩa:</b> khởi hành, rời đi. <b>Từ trái nghĩa:</b> đến, ở lại.<br><b>Ví dụ:</b> Tôi định <b>đi</b> về nhà để ngủ."
+        }
     },
     { 
         text: "okkur", 
-        is_exp: "<b>Útskýring:</b> Persónufornafnið „við“ í þágufalli eða þolfalli. Notað þegar verið er að gera eitthvað fyrir, eða með, okkur sem erum að tala.<br><b>Dæmi:</b> Viltu hjálpa <b>okkur</b> að taka til?",
-        translations: "<b>Enska (English):</b> Explanation: The personal pronoun 'we' in dative or accusative case. Used when something is done for or with us. Example: Do you want to help <b>us</b> clean up?<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Zaimek osobowy 'my' w celowniku lub bierniku. Używany, gdy coś robi się dla nas lub z nami. Przykład: Chcesz <b>nam</b> pomóc posprzątać?<br>" +
-                      "<b>Spænska (Español):</b> Explicación: Pronombre personal 'nosotros' en caso dativo o acusativo. Se usa cuando algo se hace por o con nosotros. Ejemplo: ¿Quieres ayudar<b>nos</b> a limpiar?<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng 'chúng tôi' ở cách tặng hoặc đối. Dùng khi việc gì đó được thực hiện cho hoặc cùng chúng tôi. Ví dụ: Bạn có muốn giúp <b>chúng tôi</b> dọn dẹp không?<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الضمير الشخصي 'نحن' في حالة النصب أو الجر. يُستخدم عندما يتم فعل شيء من أجلنا أو معنا. مثال: هل تريد مساعدة <b>ـنا</b> في التنظيف؟<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение 'мы' в дательном или винительном падеже. Используется, когда что-то делается для нас или с нами. Пример: Хочешь помочь <b>нам</b> убраться?<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник 'ми' у давальному або знахідному відмінку. Використовується, коли щось робиться для нас або з нами. Приклад: Хочеш допомогти <b>нам</b> прибрати?<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: ضمیر شخصی «ما» در حالت مفعولی. زمانی استفاده می‌شود که کاری برای ما یا با ما انجام شود. مثال: می‌خواهی به <b>ما</b> در تمیز کردن کمک کنی؟<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: สรรพนาม 'พวกเรา' ในรูปกรรม ใช้เมื่อบางสิ่งทำเพื่อเราหรือร่วมกับเรา ตัวอย่าง: คุณอยากช่วย<b>พวกเรา</b>ทำความสะอาดไหม?<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: O pronome pessoal 'nós' no caso dativo ou acusativo. Usado quando algo é feito para ou conosco. Exemplo: Você quer <b>nos</b> ajudar a limpar?<br>" +
-                      "<b>Kínverska (中文):</b> 解释：人称代词“我们”的宾格形式。用于表示为我们或和我们一起做某事。 例句：你想帮<b>我们</b>打扫卫生吗？<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Personas vietniekvārds 'mēs' datīvā vai akuzatīvā. Lieto, kad kaut kas tiek darīts mums vai ar mums. Piemērs: Vai vēlies palīdzēt <b>mums</b> sakopt?"
+        is_exp: "<b>Útskýring:</b> Persónufornafnið „við“ í þágufalli eða þolfalli. Notað þegar gert er eitthvað fyrir eða með mælendur.<br><b>Dæmi:</b> Viltu hjálpa <b>okkur</b> að taka til?",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: الضمير الشخصي 'نحن' في حالة النصب أو الجر.<br><b>مرادف:</b> إيانا.<br><b>مثال:</b> هل تريد مساعدة <b>ـنا</b> في التنظيف؟</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Personligt stedord 'vi' i akkusativ eller dativ (os).<br><b>Synonym:</b> os.<br><b>Eksempel:</b> Vil du hjælpe <b>os</b> med at rydde op?",
+            "en": "<b>Enska (English):</b> Explanation: The personal pronoun 'we' in dative or accusative case (us).<br><b>Synonym:</b> us.<br><b>Example:</b> Do you want to help <b>us</b> clean up?",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang panghalip panao na 'tayo/kami' sa dative o accusative case.<br><b>Kasingkahulugan:</b> sa amin, sa atin.<br><b>Halimbawa:</b> Gusto mo bang tulungan <b>kami</b> na maglinis?",
+            "fr": "<b>Franska (Français):</b> Explication: Le pronom personnel 'nous' au datif ou à l'accusatif.<br><b>Synonyme:</b> nous.<br><b>Exemple:</b> Veux-tu <b>nous</b> aider à ranger ?",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Personas vietniekvārds 'mēs' datīvā vai akuzatīvā (mums, mūs).<br><b>Sinonīms:</b> mums.<br><b>Piemērs:</b> Vai vēlies palīdzēt <b>mums</b> sakopt?",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Asmeninis įvardis 'mes' naudininko ar galininko linksniuose (mus, mums).<br><b>Sinonimas:</b> mums.<br><b>Pavyzdys:</b> Ar nori padėti <b>mums</b> sutvarkyti?",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Personlig pronomen 'vi' i akkusativ eller dativ (oss).<br><b>Synonym:</b> oss.<br><b>Eksempel:</b> Vil du hjelpe <b>oss</b> å rydde?",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: ضمیر شخصی «ما» در حالت مفعولی.<br><b>مترادف:</b> ما را، به ما.<br><b>مثال:</b> می‌خواهی به <b>ما</b> در تمیز کردن کمک کنی؟</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O pronome pessoal 'nós' no caso dativo ou acusativo (nos).<br><b>Sinônimo:</b> nos.<br><b>Exemplo:</b> Você quer <b>nos</b> ajudar a limpar?",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Zaimek osobowy 'my' w celowniku lub bierniku (nam, nas).<br><b>Synonim:</b> nam.<br><b>Przykład:</b> Chcesz <b>nam</b> pomóc posprzątać?",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Pronumele personal 'noi' în cazul dativ sau acuzativ (ne, nouă).<br><b>Sinonim:</b> ne, nouă.<br><b>Exemplu:</b> Vrei să <b>ne</b> ajuți să facem curat?",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Личное местоимение 'мы' в дательном или винительном падеже (нам, нас).<br><b>Синоним:</b> нам.<br><b>Пример:</b> Хочешь помочь <b>нам</b> убраться?",
+            "es": "<b>Spænska (Español):</b> Explicación: Pronombre personal 'nosotros' en caso dativo o acusativo (nos).<br><b>Sinónimo:</b> a nosotros, nos.<br><b>Ejemplo:</b> ¿Quieres ayudar<b>nos</b> a limpiar?",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Personligt pronomen 'vi' i ackusativ eller dativ (oss).<br><b>Synonym:</b> oss.<br><b>Exempel:</b> Vill du hjälpa <b>oss</b> att städa?",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: สรรพนาม 'พวกเรา' ในรูปกรรม<br><b>คำพ้องความหมาย:</b> พวกเรา<br><b>ตัวอย่าง:</b> คุณอยากช่วย<b>พวกเรา</b>ทำความสะอาดไหม?",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Особовий займенник 'ми' у давальному або знахідному відмінку (нам, нас).<br><b>Синонім:</b> нам.<br><b>Приклад:</b> Хочеш допомогти <b>нам</b> прибрати?",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Đại từ nhân xưng 'chúng tôi' ở cách tặng hoặc đối.<br><b>Từ đồng nghĩa:</b> chúng tôi, cho chúng tôi.<br><b>Ví dụ:</b> Bạn có muốn giúp <b>chúng tôi</b> dọn dẹp không?"
+        }
     },
     { 
         text: "hafi", 
-        is_exp: "<b>Útskýring:</b> Sagnorðið „að hafa“ í viðtengingarhætti nútíðar. Mjög oft notað eftir sögnum eins og „ég vona að...“ eða þegar eitthvað er óvíst og byggt á ósk.<br><b>Dæmi:</b> Ég vona að hann <b>hafi</b> tíma.",
-        translations: "<b>Enska (English):</b> Explanation: The verb 'to have' in the subjunctive mood. Often used after verbs like 'I hope that...' or when something is uncertain and based on a wish. Example: I hope that he <b>has</b> time.<br>" +
-                      "<b>Pólska (Polski):</b> Objaśnienie: Czasownik 'mieć' w trybie łączącym. Często używany po czasownikach typu 'mam nadzieję, że...' lub gdy coś jest niepewne (życzenie). Przykład: Mam nadzieję, że on <b>ma</b> czas.<br>" +
-                      "<b>Spænska (Español):</b> Explicación: El verbo 'tener' en modo subjuntivo. Usado a menudo después de 'espero que...' o cuando algo es incierto y basado en un deseo. Ejemplo: Espero que él <b>tenga</b> tiempo.<br>" +
-                      "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có' ở thể giả định. Thường dùng sau các động từ như 'tôi hy vọng rằng...' hoặc khi có điều gì không chắc chắn dựa trên mong muốn. Ví dụ: Tôi hy vọng anh ấy <b>có</b> thời gian.<br>" +
-                      "<b>Arabíska (العربية):</b> الشرح: الفعل 'يملك' في صيغة الشرط. غالباً ما يُستخدم بعد أفعال مثل 'آمل أن...' أو عندما يكون الأمر غير مؤكد ومبني على رغبة. مثال: آمل أن <b>يكون لديه</b> وقت.<br>" +
-                      "<b>Rússneska (Русский):</b> Объяснение: Глагол 'иметь' в сослагательном наклонении. Часто используется после глаголов типа 'я надеюсь, что...' или при неуверенности (пожелании). Пример: Я надеюсь, что у него <b>есть</b> (будет) время.<br>" +
-                      "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'мати' в умовному способі. Часто використовується після дієслів на зразок 'я сподіваюсь, що...' або при невпевненості. Приклад: Сподіваюся, він <b>матиме</b> час.<br>" +
-                      "<b>Persneska (فارسی):</b> توضیح: فعل «داشتن» در وجه التزامی. اغلب بعد از «امیدوارم که...» یا برای بیان آرزو و عدم قطعیت استفاده می‌شود. مثال: امیدوارم او وقت <b>داشته باشد</b>.<br>" +
-                      "<b>Tælenska (ไทย):</b> คำอธิบาย: กริยา 'มี' ในรูปประโยคสมมติ มักใช้หลังคำว่า 'ฉันหวังว่า...' หรือเมื่อสิ่งนั้นไม่แน่นอนและเป็นเพียงความปรารถนา ตัวอย่าง: ฉันหวังว่าเขาจะ<b>มี</b>เวลา<br>" +
-                      "<b>Portúgalska (Português):</b> Explicativo: O verbo 'ter' no modo subjuntivo. Frequentemente usado após 'espero que...' ou quando algo é incerto e baseado num desejo. Exemplo: Espero que ele <b>tenha</b> tempo.<br>" +
-                      "<b>Kínverska (中文):</b> 解释：动词“有”的虚拟语气。常用于“我希望……”之后，或表示基于愿望的不确定性。 例句：我希望他<b>有</b>时间。<br>" +
-                      "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'būt / piederēt' vēlējuma izteiksmē. Bieži lietots pēc 'es ceru, ka...' vai pie nenoteiktības, pamatojoties uz vēlēšanos. Piemērs: Es ceru, ka viņam <b>ir</b> laiks."
+        is_exp: "<b>Útskýring:</b> Sögnin „að hafa“ í viðtengingarhætti nútíðar. Mjög oft notað til að lýsa ósk eða vafa (t.d. ég vona að).<br><b>Samheiti:</b> eigi.<br><b>Dæmi:</b> Ég vona að hann <b>hafi</b> tíma.",
+        translations: {
+            "ar": "<div dir='rtl' style='text-align: right;'><b>Arabíska (العربية):</b> الشرح: الفعل 'يملك' في صيغة الشرط. يُستخدم للتعبير عن أمنية أو شك.<br><b>مرادف:</b> يمتلك.<br><b>مثال:</b> آمل أن <b>يكون لديه</b> وقت.</div>",
+            "da": "<b>Danska (Dansk):</b> Forklaring: Udsagnsordet 'at have' i konjunktiv. Bruges ofte til at udtrykke et ønske eller tvivl.<br><b>Synonym:</b> ejer.<br><b>Eksempel:</b> Jeg håber, at han <b>har</b> tid.",
+            "en": "<b>Enska (English):</b> Explanation: The verb 'to have' in the subjunctive mood. Often used to express a wish or doubt.<br><b>Synonym:</b> possess, own.<br><b>Example:</b> I hope that he <b>has</b> time.",
+            "tl": "<b>Filippseyska (Tagalog):</b> Paliwanag: Ang pandiwang 'magkaroon' sa subjunctive mood. Kadalasang ginagamit para magpahayag ng hiling o pagdududa.<br><b>Kasingkahulugan:</b> nagmamay-ari.<br><b>Halimbawa:</b> Sana ay <b>magkaroon</b> siya ng oras.",
+            "fr": "<b>Franska (Français):</b> Explication: Le verbe 'avoir' au subjonctif. Souvent utilisé pour exprimer un souhait ou un doute.<br><b>Synonyme:</b> possède.<br><b>Exemple:</b> J'espère qu'il <b>ait (a)</b> le temps.",
+            "lv": "<b>Lettneska (Latviešu):</b> Paskaidrojums: Darbības vārds 'būt' (piederēt) vēlējuma izteiksmē. Bieži lieto, lai izteiktu vēlmi vai šaubas.<br><b>Sinonīms:</b> pieder.<br><b>Piemērs:</b> Es ceru, ka viņam <b>ir</b> laiks.",
+            "lt": "<b>Litháíska (Lietuvių):</b> Paaiškinimas: Veiksmažodis 'turėti' tariamojoje nuosakoje. Dažnai naudojamas išreikšti norą ar abejonę.<br><b>Sinonimas:</b> turi.<br><b>Pavyzdys:</b> Tikiuosi, kad jis <b>turi</b> laiko.",
+            "no": "<b>Norska (Norsk):</b> Forklaring: Verbet 'å ha' i konjunktiv. Brukes ofte for å uttrykke et ønske eller tvil.<br><b>Synonym:</b> eier.<br><b>Eksempel:</b> Jeg håper at han <b>har</b> tid.",
+            "fa": "<div dir='rtl' style='text-align: right;'><b>Persneska (فارسی):</b> توضیح: فعل «داشتن» در وجه التزامی. اغلب برای بیان آرزو یا شک استفاده می‌شود.<br><b>مترادف:</b> دارا باشد.<br><b>مثال:</b> امیدوارم او وقت <b>داشته باشد</b>.</div>",
+            "pt": "<b>Portúgalska (Português):</b> Explicação: O verbo 'ter' no modo subjuntivo. Frequentemente usado para expressar um desejo ou dúvida.<br><b>Sinônimo:</b> possua.<br><b>Exemplo:</b> Espero que ele <b>tenha</b> tempo.",
+            "pl": "<b>Pólska (Polski):</b> Wyjaśnienie: Czasownik 'mieć' w trybie łączącym. Często używany do wyrażenia życzenia lub wątpliwości.<br><b>Synonim:</b> posiada.<br><b>Przykład:</b> Mam nadzieję, że on <b>ma</b> czas.",
+            "ro": "<b>Rúmenska (Română):</b> Explicație: Verbul 'a avea' la conjunctiv. Adesea folosit pentru a exprima o dorință sau îndoială.<br><b>Sinonim:</b> să posede.<br><b>Exemplu:</b> Sper că <b>are</b> timp.",
+            "ru": "<b>Rússneska (Русский):</b> Объяснение: Глагол 'иметь' в сослагательном наклонении. Часто используется для выражения желания или сомнения.<br><b>Синоним:</b> располагает.<br><b>Пример:</b> Я надеюсь, что у него <b>есть</b> (будет) время.",
+            "es": "<b>Spænska (Español):</b> Explicación: El verbo 'tener' en modo subjuntivo. Usado a menudo para expresar un deseo o duda.<br><b>Sinónimo:</b> posea.<br><b>Ejemplo:</b> Espero que él <b>tenga</b> tiempo.",
+            "sv": "<b>Sænska (Svenska):</b> Förklaring: Verbet 'att ha' i konjunktiv. Används ofta för att uttrycka en önskan eller ett tvivel.<br><b>Synonym:</b> äger.<br><b>Exempel:</b> Jag hoppas att han <b>har</b> tid.",
+            "th": "<b>Tælenska (ภาษาไทย):</b> คำอธิบาย: กริยา 'มี' ในรูปประโยคสมมติ มักใช้เพื่อแสดงความปรารถนาหรือความสงสัย<br><b>คำพ้องความหมาย:</b> ครอบครอง<br><b>ตัวอย่าง:</b> ฉันหวังว่าเขาจะ<b>มี</b>เวลา",
+            "uk": "<b>Úkraínska (Українська):</b> Пояснення: Дієслово 'мати' в умовному способі. Часто використовується для вираження бажання або сумніву.<br><b>Синонім:</b> володіє.<br><b>Приклад:</b> Сподіваюся, він <b>має</b> (матиме) час.",
+            "vi": "<b>Víetnamska (Tiếng Việt):</b> Giải thích: Động từ 'có' ở thể giả định. Thường được sử dụng để thể hiện một mong muốn hoặc sự nghi ngờ.<br><b>Từ đồng nghĩa:</b> sở hữu.<br><b>Ví dụ:</b> Tôi hy vọng anh ấy <b>có</b> thời gian."
+        }
     }
 ];
 
@@ -329,6 +474,7 @@ let currentIndex = 0;
 let recognition;
 let isRecording = false;
 let autoAdvanceTimer = null;
+let hasDownloadedCert = false;
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (SpeechRecognition) {
@@ -337,7 +483,6 @@ if (SpeechRecognition) {
     recognition.continuous = false;
     recognition.interimResults = false;
     
-    // Slökkt sjálfkrafa þegar talningu eða þögn er lokið
     recognition.onend = () => {
         isRecording = false;
         const btn = document.getElementById('record-btn');
@@ -346,7 +491,6 @@ if (SpeechRecognition) {
             btn.classList.remove('recording');
         }
         
-        // Hreinsa stöðutexta ef ekkert orð fannst
         const resDiv = document.getElementById('result');
         if (resDiv && resDiv.innerText === "Hlusta...") {
             resDiv.innerText = "";
@@ -368,7 +512,11 @@ function updateProgress() {
         }
     }
     const percent = (correctCount / exerciseData.length) * 100;
-    document.getElementById('progress-bar').style.width = percent + '%';
+    
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) {
+        progressBar.style.width = percent + '%';
+    }
     return correctCount;
 }
 
@@ -379,9 +527,35 @@ function findNextUnfinished() {
             break;
         }
     }
+    
     document.getElementById('app').innerHTML = `
-        <h1>Æfing 81 - 90 algengustu orðin í íslenskum námsbókum</h1>
+        <h1>Markorð: 81 - 90 algengustu orðin.</h1>
         <div class="progress-container"><div id="progress-bar"></div></div>
+        
+        <div class="lang-selector">
+            <label for="languageSelect"><b>🌍 Veldu tungumál:</b></label>
+            <select id="languageSelect" onchange="updateUI()">
+                <option value="ar">Arabíska – العربية</option>
+                <option value="da">Danska – Dansk</option>
+                <option value="en" selected>Enska – English</option>
+                <option value="tl">Filippseyska – Tagalog / Filipino</option>
+                <option value="fr">Franska – Français</option>
+                <option value="lv">Lettneska – Latviešu</option>
+                <option value="lt">Litháíska – Lietuvių</option>
+                <option value="no">Norska – Norsk</option>
+                <option value="fa">Persneska – فارسی</option>
+                <option value="pt">Portúgalska – Português</option>
+                <option value="pl">Pólska – Polski</option>
+                <option value="ro">Rúmenska – Română</option>
+                <option value="ru">Rússneska – Русский</option>
+                <option value="es">Spænska – Español</option>
+                <option value="sv">Sænska – Svenska</option>
+                <option value="th">Tælenska – ภาษาไทย</option>
+                <option value="uk">Úkraínska – Українська</option>
+                <option value="vi">Víetnamska – Tiếng Việt</option>
+            </select>
+        </div>
+
         <div id="counter"></div>
         <div id="target"></div>
         <div id="is-explanation"></div>
@@ -393,6 +567,9 @@ function findNextUnfinished() {
         <div class="nav-btns">
             <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
             <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+        </div>
+        <div class="feedback-note">
+            Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
         </div>
     `;
     updateUI();
@@ -408,10 +585,15 @@ function updateUI() {
                 <div class="progress-container"><div id="progress-bar" style="width: 100%;"></div></div>
                 <h1 style="color: #34a853; font-size: 2.5em;">Frábært! Þú náðir 100% árangri! 🎉</h1>
                 <p style="font-size: 1.2em; color: #555;">Skrifaðu nafnið þitt hér að neðan til að sækja viðurkenningarskjalið þitt.</p>
-                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off"><br>
-                <button id="cert-btn" class="btn" style="background-color: #1a73e8; font-size: 1.5em; padding: 15px 30px; margin-top: 10px;" onclick="downloadCert()">🏆 Sækja viðurkenningarskjal</button>
+                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off" ${hasDownloadedCert ? 'disabled' : ''}><br>
+                <button id="cert-btn" class="btn" style="background-color: ${hasDownloadedCert ? '#5f6368' : '#1a73e8'}; font-size: 1.5em; padding: 15px 30px; margin-top: 10px; cursor: ${hasDownloadedCert ? 'not-allowed' : 'pointer'}; opacity: ${hasDownloadedCert ? '0.7' : '1'};" onclick="downloadCert()" ${hasDownloadedCert ? 'disabled' : ''}>
+                    ${hasDownloadedCert ? '✅ Skjal sótt' : '🏆 Sækja viðurkenningarskjal'}
+                </button>
                 <br><br>
-                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja aftur</button>
+                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja nýja umferð</button>
+                <div class="feedback-note">
+                    Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+                </div>
             `;
         } else {
             document.getElementById('app').innerHTML = `
@@ -420,16 +602,24 @@ function updateUI() {
                 <p style="font-size: 1.2em;">Þú hefur klárað ${correctCount} af ${exerciseData.length} orðum með 100% árangri.</p>
                 <p style="font-size: 1.1em; color: #555;">Farðu til baka og reyndu aftur við þau orð sem vantaði upp á til að fá skjalið.</p>
                 <button class="btn" style="background-color: #fbbc05; color: #000;" onclick="findNextUnfinished()">➡️ Fara á orð sem vantar</button>
+                <div class="feedback-note">
+                    Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+                </div>
             `;
         }
         return;
     }
 
     const curr = exerciseData[currentIndex];
+    
+    const langSelect = document.getElementById('languageSelect');
+    const selectedLang = langSelect ? langSelect.value : 'en';
+
     document.getElementById('target').innerHTML = curr.text;
     document.getElementById('is-explanation').innerHTML = curr.is_exp;
     document.getElementById('counter').innerText = `Orð ${currentIndex + 1} af ${exerciseData.length}`;
-    document.getElementById('media-box').innerHTML = curr.translations;
+    
+    document.getElementById('media-box').innerHTML = curr.translations[selectedLang] || "Þýðing ekki til / Translation missing";
 
     const savedScore = userScores[currentIndex];
     const savedText = userSpoken[currentIndex];
@@ -500,12 +690,14 @@ if (recognition) {
         if (score === 100) {
             autoAdvanceTimer = setTimeout(() => {
                 nextExercise();
-            }, 1000); // 1 sekúndu bið
+            }, 1000); 
         }
     };
 }
 
 function downloadCert() {
+    if (hasDownloadedCert) return; 
+
     const studentNameInput = document.getElementById('studentName');
     const studentName = studentNameInput ? studentNameInput.value.trim() : "";
     
@@ -549,7 +741,7 @@ function downloadCert() {
 
     ctx.fillStyle = '#1a73e8';
     ctx.font = 'bold 26px Arial';
-    ctx.fillText('Æfing 81 - 90 algengustu orðin í íslenskum námsbókum', canvas.width / 2, 420);
+    ctx.fillText('Markorð: 81 - 90 algengustu orðin.', canvas.width / 2, 420);
     
     ctx.fillStyle = '#34a853';
     ctx.font = 'italic 28px Arial';
@@ -565,7 +757,7 @@ function downloadCert() {
     link.href = canvas.toDataURL('image/png');
     link.click();
     
-    // Slekkur á takkanum til að koma í veg fyrir mörg skjöl
+    hasDownloadedCert = true;
     const btn = document.getElementById('cert-btn');
     if (btn) {
         btn.disabled = true;
@@ -573,6 +765,9 @@ function downloadCert() {
         btn.style.backgroundColor = "#5f6368";
         btn.style.cursor = "not-allowed";
         btn.style.opacity = "0.7";
+    }
+    if (studentNameInput) {
+        studentNameInput.disabled = true;
     }
 }
 </script>
